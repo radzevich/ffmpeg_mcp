@@ -36,4 +36,4 @@ EXPOSE 8000
 ENV PYTHONUNBUFFERED=1
 
 # Run the application
-CMD ["fastmcp", "run", "main.py", "--transport", "http", "--port", "8000"]
+CMD ["fastmcp", "run", "main.py", "--transport", "http", "--host", "0.0.0.0", "--port", "8000"]

@@ -1,6 +1,7 @@
 import os
 import httpx
 from fastmcp import FastMCP
+from starlette.responses import JSONResponse
 
 # Initialize FastMCP server
 mcp = FastMCP("ffmpeg_mcp")
@@ -218,6 +219,10 @@ async def upload_file_to_gcs(sandbox: str, filename: str, gcs_url):
     blob.upload_from_filename(file_path)
     
     return f"File {filename} uploaded to {gcs_url} successfully."
+
+@mcp.custom_route("/health", methods=["GET"])
+async def health_check(request):
+    return JSONResponse({"status": "healthy", "service": "mcp-server"})
 
 if __name__ == "__main__":
     mcp.run()
