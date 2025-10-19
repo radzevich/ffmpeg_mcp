@@ -1,12 +1,12 @@
 import os
 import httpx
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
 
 # Initialize FastMCP server
 mcp = FastMCP("ffmpeg_mcp")
 
 @mcp.tool()
-def run_ffmpeg_command(sandbox: str, command: str) -> str:
+async def run_ffmpeg_command(sandbox: str, command: str) -> str:
     """
     Executes an ffmpeg command on the server and returns the output.
     
@@ -37,7 +37,7 @@ def run_ffmpeg_command(sandbox: str, command: str) -> str:
         return f"Error executing command: {e.stderr.decode('utf-8')}"
     
 @mcp.tool()
-def create_sandbox():
+async def create_sandbox():
     """
     Creates a sandboxed environment for running ffmpeg commands.
     
@@ -51,7 +51,7 @@ def create_sandbox():
     return sandbox_dir
 
 @mcp.tool()
-def put_file(sandbox: str, filename: str, content: bytes) -> str:
+async def put_file(sandbox: str, filename: str, content: bytes) -> str:
     """
     Puts a file into the sandbox environment.
     
@@ -75,7 +75,7 @@ def put_file(sandbox: str, filename: str, content: bytes) -> str:
     return file_path
 
 @mcp.tool()
-def get_file(sandbox: str, filename: str) -> bytes:
+async def get_file(sandbox: str, filename: str) -> bytes:
     """
     Retrieves a file from the sandbox environment.
     
@@ -95,7 +95,7 @@ def get_file(sandbox: str, filename: str) -> bytes:
     return content
 
 @mcp.tool()
-def delete_file(sandbox: str, filename: str) -> str:
+async def delete_file(sandbox: str, filename: str) -> str:
     """
     Deletes a file from the sandbox environment.
     
@@ -116,7 +116,7 @@ def delete_file(sandbox: str, filename: str) -> str:
         return f"File {filename} does not exist."
     
 @mcp.tool()
-def download_file(sandbox: str, url: str, filename: str) -> str:
+async def download_file(sandbox: str, url: str, filename: str) -> str:
     """
     Downloads a file from a URL into the sandbox environment.
     
@@ -142,7 +142,7 @@ def download_file(sandbox: str, url: str, filename: str) -> str:
     return file_path
 
 @mcp.tool()
-def upload_file(sandbox: str, filename: str, upload_url: str) -> str:
+async def upload_file(sandbox: str, filename: str, upload_url: str) -> str:
     """
     Uploads a file from the sandbox environment to a specified URL.
     
@@ -165,7 +165,7 @@ def upload_file(sandbox: str, filename: str, upload_url: str) -> str:
     return response.text
 
 @mcp.tool()
-def download_file_from_gcs(sandbox: str, gcs_url: str, filename: str) -> str:
+async def download_file_from_gcs(sandbox: str, gcs_url: str, filename: str) -> str:
     """
     Downloads a file from Google Cloud Storage into the sandbox environment.
     
@@ -194,7 +194,7 @@ def download_file_from_gcs(sandbox: str, gcs_url: str, filename: str) -> str:
     return file_path
 
 @mcp.tool()
-def upload_file_to_gcs(sandbox: str, filename: str, gcs_url):
+async def upload_file_to_gcs(sandbox: str, filename: str, gcs_url):
     """
     Uploads a file from the sandbox environment to Google Cloud Storage.
     
