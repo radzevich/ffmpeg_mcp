@@ -220,4 +220,4 @@ def upload_file_to_gcs(sandbox: str, filename: str, gcs_url):
     return f"File {filename} uploaded to {gcs_url} successfully."
 
 if __name__ == "__main__":
-    mcp.run(transport="httpx", host="localhost", port=8000)
+    mcp.run()
